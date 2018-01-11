@@ -16,11 +16,11 @@ import { ContentModule } from './content/content.module';
     AppComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     UiModule,
     ContentModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+    environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
   ],
   providers: [],
   bootstrap: [AppComponent],

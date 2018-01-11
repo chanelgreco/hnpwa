@@ -4,12 +4,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'hn/top', pathMatch: 'full' },
   { path: 'hn', loadChildren: './content/content.module#ContentModule'},
+  { path: '', redirectTo: 'hn', pathMatch: 'full' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { enableTracing: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
