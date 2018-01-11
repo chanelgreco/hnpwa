@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { DataService } from '../../content/data.service';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
@@ -11,17 +12,33 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class StoryFeedComponent implements OnInit {
 
-  private _feed: Observable<number[]>;
+  feed: Observable<number[]>;
   items$: Observable<any[]>;
+  pages$: Observable<number>;
+  currentPage$ = new BehaviorSubject(1);
+
+  preload;
 
   constructor(private db: DataService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this._feed = this.route.data.switchMap(data => {
+    this.feed = this.route.data.switchMap(data => {
       return this.db.getFeed(data.feed);
     });
 
-    this.items$ = this._feed.map(ids => ids.slice(0, 30));
+    this.pages$ = this.feed.map(arr => Math.floor(arr.length / 30) + 1);
+
+    this.items$ = this.currentPage$.switchMap(page => {
+      return this.feed.map(items => items.slice((page - 1) * 30, (page - 1) * 30 + 30));
+    });
+  }
+
+  nextPage() {
+    this.currentPage$.next(this.currentPage$.value + 1);
+  }
+
+  prevPage() {
+    this.currentPage$.next(this.currentPage$.value - 1);
   }
 
 }
