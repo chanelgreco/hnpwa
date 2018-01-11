@@ -13,8 +13,7 @@ import { ContentModule } from './content/content.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    StoryFeedComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

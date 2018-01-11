@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../content/data.service';
-import { Router, ActivatedRouter, ParamMap } from '@angular/router';
-import { ActivatedRoute } from '@angular/router/src/router_state';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-story-detail',

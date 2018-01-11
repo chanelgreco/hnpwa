@@ -7,15 +7,14 @@ import { StoryCommentComponent } from './story-comment/story-comment.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UiModule } from '../ui/ui.module';
 
+import { Routes, RouterModule } from '@angular/router';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
-import { Routes, RouterModule } from '@angular/router';
 import { DataService } from './data.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'top', pathMatch: 'full' },
-
+  { path: 'news', component: StoryFeedComponent },
   { path: 'top', data: { feed: 'topstories' }, component: StoryFeedComponent },
   { path: 'new', data: { feed: 'newstories' }, component: StoryFeedComponent },
   { path: 'ask', data: { feed: 'askstories'}, component: StoryFeedComponent },
