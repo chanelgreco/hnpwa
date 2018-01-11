@@ -11,12 +11,26 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { Routes, RouterModule } from '@angular/router';
+import { DataService } from './data.service';
+
+const routes: Routes = [
+  { path: '', redirectTo: 'top', pathMatch: 'full' },
+
+  { path: 'top', data: { feed: 'topstories' }, component: StoryFeedComponent },
+  { path: 'new', data: { feed: 'newstories' }, component: StoryFeedComponent },
+  { path: 'ask', data: { feed: 'askstories'}, component: StoryFeedComponent },
+  { path: 'show', data: { feed: 'showstories'}, component: StoryFeedComponent },
+  { path: 'jobs', data: { feed: 'jobstories'}, component: StoryFeedComponent },
+
+  { path: 'item/:id', component: StoryDetailComponent },
+  { path: 'user/:id', component: UserDetailComponent }
+];
 
 @NgModule({
   imports: [
     CommonModule,
     UiModule,
-    RouterModule,
+    RouterModule.forChild(routes),
     AngularFireModule.initializeApp({ databaseURL: 'https://hacker-news.firebaseio.com'}),
     AngularFireDatabaseModule
   ],
